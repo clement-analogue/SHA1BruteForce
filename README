@@ -53,7 +53,7 @@ $ sudo apt install g++ libboost-all-dev libtomcrypt-dev
 
 Modify the parameters in main.cpp.
 * HASH:      The SHA-1 hash.
-             Two accepted format:
+             Two accepted formats:
              1/ Without spaces, as usually stored.
                 You need to ensure
                 that it is 40 character-long.
