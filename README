@@ -40,7 +40,7 @@ Multithreading: On a N_CORE computer,
 
 3/ Install
 
-You need gcc < 8, Boost and Libtomcrypt.
+You need GCC < 8, Boost and Libtomcrypt.
 The restriction comes from an incompatibility between GCC 8
 and Boost.
 On Ubuntu,
@@ -73,7 +73,7 @@ Modify the parameters in main.cpp.
              a number of thread corresponding
              to the number of character to test.
              In other words, the length of list.
-             In this case, it is 95. */
+             In this case, it is 95.
 
 4.2/ Makefile
 
