@@ -92,7 +92,7 @@ to
 
 Add the flag -fprofile-generate
 to the variable CC in the Makefile.
-Clean object in case already compile before
+Clean objects in case already compile before
 and recompile with the new flag.
 
 $ make clean; make -j 2
