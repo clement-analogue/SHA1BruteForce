@@ -125,6 +125,6 @@ because there is only 2 objects.
 4.3/ sha1
 
 Launch it with
-./sha1
+$ ./sha1
 It will display the SHA-1 hash and the corresponding password
 if it find it.
