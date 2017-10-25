@@ -108,6 +108,10 @@ Modify the variable CC in the Makefile
 to substitute -fprofile-generate
 by -fprofile-use -fprofile-correction.
 
+Finally, clean the objects to enforce recompiling all of them using the profile
+
+$ make clean
+
 4.2.2/ Compiling
 
 Then compile with
@@ -125,6 +129,18 @@ because there is only 2 objects.
 4.3/ sha1
 
 Launch it with
+
 $ ./sha1
+
 It will display the SHA-1 hash and the corresponding password
 if it find it.
+
+4.4/ Cleaning
+
+You can safely clean the temporary objects with
+
+$ make clean
+
+You can also clean all files produced by the project to recover fresh-like folder
+
+$ make mrproper
