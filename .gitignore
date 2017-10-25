@@ -1,0 +1,9 @@
+hash.dat
+*.o
+sha1
+*~
+gmon.out
+a.out
+*.s
+err
+*.gcda

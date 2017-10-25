@@ -1,0 +1,130 @@
+    SHA1BruteForce, brute-force attack to recover SHA-1 hashed password.
+    Copyright (C) 2017  Clément Février
+
+1/ License
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+    Contact informations:
+    Email
+     clement+dev@forumanalogue.fr
+    Post address
+     4 impasse de l'Abbaye
+     38100 Grenoble
+     FRANCE
+
+2/ About
+
+This is a simple C++ software to recover a password
+for SHA-1 hash. It is performing a brute-force attack.
+Complexity: It is a simple brute-force algorithm,
+            so the complexity increases exponentially
+            with the size of the password.
+Multithreading: On a N_CORE computer,
+                if SEQTIME is the maximum time
+                when launched with one thread,
+                then the maximum time is
+                SEQTIME / N_TREAD when N_THREAD < N_CORE
+                and SEQTIME / N_CORE when N_THREAD > N_CORE
+
+3/ Install
+
+You need gcc < 8, Boost and Libtomcrypt.
+The restriction comes from an incompatibility between GCC 8
+and Boost.
+On Ubuntu,
+
+$ sudo apt install g++ libboost-all-dev libtomcrypt-dev
+
+4/ Use
+
+4.1/ main.cpp
+
+Modify the parameters in main.cpp.
+* HASH:      The SHA-1 hash.
+             Two accepted format:
+             1/ Without spaces, as usually stored.
+                You need to ensure
+                that it is 40 character-long.
+                Example for the password ZZZ
+                116ff222a3b49b63348d7782e4b43ffe2dcbb198
+             2/ With spaces.
+                No restriction on the length of the string.
+                But you need to ensure to have
+                20 spaced-separated hexadecimal numbers.
+                It is the format used to display hashes
+                in this program.
+                Example for the password ZZZZZZ
+                18 f3 f 1b a4 c6 2e 2b 46 e 69 33 6 b3 9a d e2 7d 74 7c
+* MaxLength: Maximum length of the password to test.
+* N_THREAD:  Number of threads to launch.
+             The program will launch at most
+             a number of thread corresponding
+             to the number of character to test.
+             In other words, the length of list.
+             In this case, it is 95. */
+
+4.2/ Makefile
+
+4.2.1/ (Optional) Profiling
+
+You can use the Makefile as it is,
+but I recommend to add the flags specific to your architecture.
+Also, you can profile the code with the following steps.
+Set the variable test in main.cpp. For example, change line 91
+
+ const std::string test = "";
+
+to
+
+ const std::string test = "!!!";
+
+Add the flag -fprofile-generate
+to the variable CC in the Makefile.
+Clean object in case already compile before
+and recompile with the new flag.
+
+$ make clean; make -j 2
+
+Execute the code to generate the profile.
+
+$ ./sha1
+
+Modify main.cpp to reverte back test to ""
+otherwise the SHA-1 hash that you want to crack will be ignore.
+
+Modify the variable CC in the Makefile
+to substitute -fprofile-generate
+by -fprofile-use -fprofile-correction.
+
+4.2.2/ Compiling
+
+Then compile with
+
+$ make
+
+or
+
+$ make -j 2
+
+for parallel compiling.
+Any number greater than 2 will not have effect
+because there is only 2 objects.
+
+4.3/ sha1
+
+Launch it with
+./sha1
+It will display the SHA-1 hash and the corresponding password
+if it find it.
