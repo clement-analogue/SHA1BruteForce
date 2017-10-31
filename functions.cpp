@@ -75,11 +75,11 @@ unsigned char * hashSHA1(const std::string & input)
  return output;
 }*/
 
-void findPassword(const unsigned char * hash, const std::string * list, const unsigned int & COUNT, const unsigned int & L, const unsigned int N_THREAD)
+void findPassword(const unsigned char * hash, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char N_THREAD)
 {
  // Create a group of threads
  boost::thread_group t;
- for(unsigned int i = 0; i < COUNT; ++i)
+ for(unsigned short int i = 0; i < COUNT; ++i)
  {
   // Launch a thread
   // Initiate the recursive function with the first letter
@@ -97,7 +97,7 @@ void findPassword(const unsigned char * hash, const std::string * list, const un
  t.join_all();
 }
 
-void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned int & COUNT, const unsigned int & L, const unsigned int & l, const unsigned int N_THREAD)
+void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char & l, const unsigned char N_THREAD)
 {
  // If the password to test is build,
  // test if it is the correct one
@@ -108,7 +108,7 @@ void findPasswordThread(const unsigned char * hash, const std::string & pass, co
   // Test if hashes match
   // Assume that the correct password expected if shown otherwise
   bool found = true;
-  for(size_t i = 0; i < 20; ++i)
+  for(unsigned char i = 0; i < 20; ++i)
   {
    // This condition is strictly equivalent to
    // if(sha1[i] ^ hash[i])
@@ -137,7 +137,8 @@ void findPasswordThread(const unsigned char * hash, const std::string & pass, co
   {
    // Display once again the hash.
    std::cout<<"* Hash SHA1:"<<std::endl;
-   for (int x = 0; x < 20; x++) {
+   for (unsigned char x = 0; x < 20; ++x)
+   {
     std::printf("%x ", hash[x]); //Hex-format
    }
    std::cout<<std::endl;
@@ -151,7 +152,7 @@ void findPasswordThread(const unsigned char * hash, const std::string & pass, co
  {
   // If the password is not build yet,
   // keep appending characters.
-  for(unsigned int i = 0; i < COUNT; ++i)
+  for(unsigned short int i = 0; i < COUNT; ++i)
   {
    // pass + list[i]
    // adds a new letter to the password to test.

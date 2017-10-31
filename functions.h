@@ -52,7 +52,7 @@ unsigned char * hashSHA1(const std::string & input);
    * COUNT:    Length of list.
    * L:        Maximum length of the password to test.
    * N_THREAD: Number of threads to launch. */
-void findPassword(const unsigned char * hash, const std::string * list, const unsigned int & COUNT, const unsigned int & L, const unsigned int N_THREAD);
+void findPassword(const unsigned char * hash, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char N_THREAD);
 
 /* Seek for password, display the latter if found it
    and exit the program.
@@ -64,4 +64,4 @@ void findPassword(const unsigned char * hash, const std::string * list, const un
    * L:        Maximum length of the password to test.
    * l:        Current length of the password to test.
    * N_THREAD: Number of threads to launch. */
-void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned int & COUNT, const unsigned int & L, const unsigned int & l, const unsigned int N_THREAD);
+void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char & l, const unsigned char N_THREAD);

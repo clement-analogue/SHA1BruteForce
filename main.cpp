@@ -70,9 +70,9 @@
 int main ()
 {
  // Number of threads to launch.
- const unsigned int N_THREAD = 64;
+ const unsigned char N_THREAD = 64;
  // Max length of password.
- const unsigned int MaxLength = 4;
+ const unsigned char MaxLength = 4;
  // SHA-1 hash to crack.
  // Below few examples and their corresponding password.
  // ZZZ
@@ -86,7 +86,7 @@ int main ()
  //std::string HASH = "18 f3 f 1b a4 c6 2e 2b 46 e 69 33 6 b3 9a d e2 7d 74 7c";
  //std::string HASH = "18 f3 f 1b a4 c6 2e 2b 46 e 69 33 6 b3 9a d e2 7d 74 7c";
  // If set, ignore HASH and compute test's SHA-1 hash and attempt to crack it.
- const std::string test = "";
+ const std::string test = "fo";
  // Pointer used to store the SHA-1 hash.
  unsigned char * hash;
  // std::vector used to create hash.
@@ -114,7 +114,7 @@ int main ()
   {
    // Add space every 2 characters starting from the end.
    std::string space = " ";
-   for(size_t i = 19; i > 0; --i)
+   for(unsigned char i = 19; i > 0; --i)
    {
     HASH.insert(2 * i, space);
    }
@@ -132,7 +132,7 @@ int main ()
  }
  // Display the input SHA-1 hash.
  std::cout<<"* Hash SHA1:"<<std::endl;
- for (int x = 0; x < 20; x++)
+ for (int x = 0; x < 20; ++x)
  {
   std::printf("%x ", hash[x]); //Hex-format
  }
@@ -142,7 +142,7 @@ int main ()
  // count: Increment used to access list element in the loop.
  //        Also used to pass the length of the list
  //        to findPassword.
- unsigned int count = 0;
+ unsigned short int count = 0;
  // First item is "".
  // Used to build password to test smaller than MaxLength.
  list[0] = "";
@@ -152,7 +152,7 @@ int main ()
  // In this case, all from 33 to 126 included.
  // The reverted order is used to test in priority
  // lowercase-based passwords.
- for(unsigned int i = 126; i > 32; --i)
+ for(unsigned short int i = 126; i > 32; --i)
  {
   // Convert the dec value of i to char.
   list[count] = (char)i;
