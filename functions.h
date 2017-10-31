@@ -24,6 +24,9 @@
      FRANCE
 */
 
+#ifndef _FUNCTIONS_H_
+#define _FUNCTIONS_H_
+
 /* Return the hash SHA-1 of a string (input)
    using libtomcrypt */
 unsigned char * hashSHA1(const std::string & input);
@@ -65,3 +68,5 @@ void findPassword(const unsigned char * hash, const std::string * list, const un
    * l:        Current length of the password to test.
    * N_THREAD: Number of threads to launch. */
 void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char & l, const unsigned char N_THREAD);
+
+#endif

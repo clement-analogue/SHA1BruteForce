@@ -86,7 +86,7 @@ int main ()
  //std::string HASH = "18 f3 f 1b a4 c6 2e 2b 46 e 69 33 6 b3 9a d e2 7d 74 7c";
  //std::string HASH = "18 f3 f 1b a4 c6 2e 2b 46 e 69 33 6 b3 9a d e2 7d 74 7c";
  // If set, ignore HASH and compute test's SHA-1 hash and attempt to crack it.
- const std::string test = "fo";
+ const std::string test = "";
  // Pointer used to store the SHA-1 hash.
  unsigned char * hash;
  // std::vector used to create hash.
