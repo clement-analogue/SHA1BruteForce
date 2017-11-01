@@ -28,8 +28,7 @@
 //#include <crypto++/hex.h>
 
 #include <string>   // std::string
-#include <iostream> // std::cout
-#include <ostream>  // std::endl
+#include <iostream> // std::cout, ostream (std::endl)
 #include <cstddef>  // size_t
 #include <cstdio>   // std::printf
 #include <cstdlib>  // EXIT_SUCCESS, exit

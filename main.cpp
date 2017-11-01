@@ -27,9 +27,8 @@
 #include <string>   // std::string
 #include <sstream>  // std::istringstream
 #include <vector>   // std::vector
-#include <ios>      // std::hex
-#include <iostream> // std::cout
-#include <ostream>  // std::endl
+#include <iostream> // std::cout, ios (std::hex),
+                    // ostream (std::endl)
 #include <cstdio>   // std::printf
 
 #include "functions.h" // findPassword
