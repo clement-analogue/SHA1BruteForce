@@ -27,13 +27,53 @@
 #ifndef _FUNCTIONS_H_
 #define _FUNCTIONS_H_
 
-/* Return the hash SHA-1 of a string (input)
-   using libtomcrypt */
-unsigned char * hashSHA1(const std::string & input);
+#include <string>   // std::string
+#include <iostream> // std::cout, ostream (std::endl)
+
+#include <boost/thread.hpp> // boost::thread_group, boost::bind
+
+//#include <crypto++/sha.h>
+//#include <crypto++/hex.h>
+
+#include <tomcrypt.h> // sha1_desc, hash_state, sha1_init, sha1_process
+
+/* Hashes a given input string using the SHA-1 algorithm
+   using libtomcrypt
+   Parameter:
+   * The input sequence pointer
+   Returns:
+   * A 20 bytes long new[]-allocated pointer
+     to the resulting data. */
+unsigned char * hashSHA1(const auto & input)
+{
+ // Initial
+ auto * hashResult = new unsigned char [sha1_desc.hashsize];
+ // Initialize a state variable for the hash
+ hash_state md;
+ sha1_init(&md);
+ // Process the text
+ sha1_process(&md, (const decltype(hashSHA1(input))) input.c_str(), input.size());
+ // Finish the hash calculation
+ sha1_done(&md, hashResult);
+ // Return the result
+ return hashResult;
+}
 
 /* Return the hash SHA-1 of a string (source)
    using Crypto++ */
-//std::string generateHash(const std::string & source);
+//std::string generateHash(const auto & source);
+
+/* Seek for password, display the latter if found it
+   and exit the program.
+   Parameters:
+   * hash:     The hash to crack.
+   * pass:     Current state of the password to build and test.
+   * list:     List of all allowed characters.
+   * COUNT:    Length of list.
+   * L:        Maximum length of the password to test.
+   * l:        Current length of the password to test.
+   * N_THREAD: Number of threads to launch. */
+void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned char & COUNT, const unsigned char & L, const unsigned char & l, const unsigned char & N_THREAD);
 
 /* Seek for password, display the latter if found it
    and exit the program.
@@ -55,18 +95,26 @@ unsigned char * hashSHA1(const std::string & input);
    * COUNT:    Length of list.
    * L:        Maximum length of the password to test.
    * N_THREAD: Number of threads to launch. */
-void findPassword(const unsigned char * hash, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char N_THREAD);
-
-/* Seek for password, display the latter if found it
-   and exit the program.
-   Parameters:
-   * hash:     The hash to crack.
-   * pass:     Current state of the password to build and test.
-   * list:     List of all allowed characters.
-   * COUNT:    Length of list.
-   * L:        Maximum length of the password to test.
-   * l:        Current length of the password to test.
-   * N_THREAD: Number of threads to launch. */
-void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char & l, const unsigned char N_THREAD);
+void findPassword(const auto hash, const auto list, const auto & COUNT, const auto & L, const auto & N_THREAD)
+{
+ // Create a group of threads
+ boost::thread_group t;
+ for(unsigned char i = 0; i < COUNT; ++i)
+ {
+  // Launch a thread
+  // Initiate the recursive function with the first letter
+  t.create_thread(boost::bind(findPasswordThread, hash, list[i], list, COUNT, L, 1, N_THREAD));
+  // Wait until N_THREAD finish before launching news ones
+  if((i % N_THREAD) == (N_THREAD - 1))
+  {
+   // Do not continue before all launched threads finish
+   t.join_all();
+   // Display a progress to standard output
+   std::cout<<"progress: "<<100 * i / (float)COUNT <<"%"<<std::endl;
+  }
+ }
+ // Wait for remaining threads to finish
+ t.join_all();
+}
 
 #endif

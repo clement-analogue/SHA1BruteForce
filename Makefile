@@ -30,22 +30,22 @@ all:ex
 # Other flags are added.
 # -pipe decreases compilation time.
 #
-CC= g++ -std=gnu++11 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL
+#CC= g++ -std=gnu++14 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL
 #
 # Same as above with flags specific for AMD Piledriver Family 15h.
 #
-#CC= g++ -std=gnu++11 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL -march=bdver2 -msse -msse2 -msse3 -mmmx -m3dnow
+CC= g++ -std=gnu++14 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL -march=bdver2 -msse -msse2 -msse3 -mmmx -m3dnow
 #
 # Use -fprofile-generate to generate a profile.
 # Here for AMD Piledriver Family 15h.
 #
-#CC= g++ -std=gnu++11 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL -march=bdver2 -msse -msse2 -msse3 -mmmx -m3dnow -fprofile-generate
+#CC= g++ -std=gnu++14 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL -march=bdver2 -msse -msse2 -msse3 -mmmx -m3dnow -fprofile-generate
 #
 # Use -fprofile-use -fprofile-correction to use the profile.
 # The second flag is needed for multithreading.
 # Here for AMD Piledriver Family 15h.
 #
-#CC= g++ -std=gnu++11 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL -march=bdver2 -msse -msse2 -msse3 -mmmx -m3dnow -fprofile-use -fprofile-correction
+#CC= g++ -std=gnu++14 -Ofast -Wall -Wextra -pipe -fassociative-math -freciprocal-math -fno-signed-zeros -fno-trapping-math -frename-registers -funroll-loops -fopenmp -D_GLIBCXX_PARALLEL -march=bdver2 -msse -msse2 -msse3 -mmmx -m3dnow -fprofile-use -fprofile-correction
 
 link= -o
 

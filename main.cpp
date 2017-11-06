@@ -141,7 +141,7 @@ int main ()
  // count: Increment used to access list element in the loop.
  //        Also used to pass the length of the list
  //        to findPassword.
- unsigned short int count = 0;
+ unsigned char count = 0;
  // First item is "".
  // Used to build password to test smaller than MaxLength.
  list[0] = "";
@@ -151,7 +151,7 @@ int main ()
  // In this case, all from 33 to 126 included.
  // The reverted order is used to test in priority
  // lowercase-based passwords.
- for(unsigned short int i = 126; i > 32; --i)
+ for(unsigned char i = 126; i > 32; --i)
  {
   // Convert the dec value of i to char.
   list[count] = (char)i;

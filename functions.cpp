@@ -24,43 +24,14 @@
      FRANCE
 */
 
-//#include <crypto++/sha.h>
-//#include <crypto++/hex.h>
-
 #include <string>   // std::string
 #include <iostream> // std::cout, ostream (std::endl),
                     // io (std::hex)
-#include <cstddef>  // size_t
 #include <cstdlib>  // EXIT_SUCCESS, exit
-
-#include <boost/thread.hpp> // boost::thread_group, boost::bind
-
-#include <tomcrypt.h> // sha1_desc, hash_state, sha1_init, sha1_process
 
 #include "functions.h"
 
-/**
- * Hashes a given input string using the SHA1 algorithm
- * @param input The input sequence pointer
- * @param inputSize The size of the input sequence
- * @return A new[]-allocated pointer to the resulting data. 20 bytes long.
- */
-unsigned char * hashSHA1(const std::string & input)
-{
- //Initial
- unsigned char * hashResult = new unsigned char[sha1_desc.hashsize];
- //Initialize a state variable for the hash
- hash_state md;
- sha1_init(&md);
- //Process the text - remember you can call process() multiple times
- sha1_process(&md, (const unsigned char*) input.c_str(), input.size());
- //Finish the hash calculation
- sha1_done(&md, hashResult);
- // Return the result
- return hashResult;
-}
-
-/*std::string generateHash(const std::string & source)
+/*std::string generateHash(const auto & source)
 {
  CryptoPP::SHA1 hash;
  byte digest[CryptoPP::SHA1::DIGESTSIZE];
@@ -74,39 +45,17 @@ unsigned char * hashSHA1(const std::string & input)
  return output;
 }*/
 
-void findPassword(const unsigned char * hash, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char N_THREAD)
-{
- // Create a group of threads
- boost::thread_group t;
- for(unsigned short int i = 0; i < COUNT; ++i)
- {
-  // Launch a thread
-  // Initiate the recursive function with the first letter
-  t.create_thread(boost::bind(findPasswordThread, hash, list[i], list, COUNT, L, 1, N_THREAD));
-  // Wait until N_THREAD finish before launching news ones
-  if((i % N_THREAD) == (N_THREAD - 1))
-  {
-   // Do not continue before all launched threads finish
-   t.join_all();
-   // Display a progress to standard output
-   std::cout<<"progress: "<<100 * i / (double)COUNT <<"%"<<std::endl;
-  }
- }
- // Wait for remaining threads to finish
- t.join_all();
-}
-
-void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned short int & COUNT, const unsigned char & L, const unsigned char & l, const unsigned char N_THREAD)
+void findPasswordThread(const unsigned char * hash, const std::string & pass, const std::string * list, const unsigned char & COUNT, const unsigned char & L, const unsigned char & l, const unsigned char & N_THREAD)
 {
  // If the password to test is build,
  // test if it is the correct one
  if(l == L)
  {
   // Hash the pass word to test
-  unsigned char * sha1 = hashSHA1(pass);
+  const auto sha1 = hashSHA1(pass);
   // Test if hashes match
   // Assume that the correct password expected if shown otherwise
-  bool found = true;
+  auto found = true;
   for(unsigned char i = 0; i < 20; ++i)
   {
    // This condition is strictly equivalent to
@@ -152,7 +101,7 @@ void findPasswordThread(const unsigned char * hash, const std::string & pass, co
  {
   // If the password is not build yet,
   // keep appending characters.
-  for(unsigned short int i = 0; i < COUNT; ++i)
+  for(unsigned char i = 0; i < COUNT; ++i)
   {
    // pass + list[i]
    // adds a new letter to the password to test.
