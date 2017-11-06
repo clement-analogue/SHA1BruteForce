@@ -28,8 +28,7 @@
 #include <sstream>  // std::istringstream
 #include <vector>   // std::vector
 #include <iostream> // std::cout, ios (std::hex),
-                    // ostream (std::endl)
-#include <cstdio>   // std::printf
+                    // ostream (std::endl), io (std::hex)
 
 #include "functions.h" // findPassword
 
@@ -69,18 +68,18 @@
 int main ()
 {
  // Number of threads to launch.
- const unsigned char N_THREAD = 64;
+ constexpr unsigned char N_THREAD = 64;
  // Max length of password.
- const unsigned char MaxLength = 4;
+ constexpr unsigned char MaxLength = 5;
  // SHA-1 hash to crack.
  // Below few examples and their corresponding password.
  // ZZZ
  //std::string HASH = "11 6f f2 22 a3 b4 9b 63 34 8d 77 82 e4 b4 3f fe 2d cb b1 98";
- std::string HASH = "116ff222a3b49b63348d7782e4b43ffe2dcbb198";
+ //std::string HASH = "116ff222a3b49b63348d7782e4b43ffe2dcbb198";
  // ZZZZ
  //std::string HASH = "98 65 d4 83 bc 5a 94 f2 e3 0 56 fc 25 6e d3 6 6a f5 4d 4";
  // ZZZZZ
- //std::string HASH = "f8 88 fa 8a 61 ba 9a 53 a4 5f 4 a 4b bb 8b 2f c1 f6 44 44";
+ std::string HASH = "f8 88 fa 8a 61 ba 9a 53 a4 5f 4 a 4b bb 8b 2f c1 f6 44 44";
  // ZZZZZZ
  //std::string HASH = "18 f3 f 1b a4 c6 2e 2b 46 e 69 33 6 b3 9a d e2 7d 74 7c";
  //std::string HASH = "18 f3 f 1b a4 c6 2e 2b 46 e 69 33 6 b3 9a d e2 7d 74 7c";
@@ -131,9 +130,10 @@ int main ()
  }
  // Display the input SHA-1 hash.
  std::cout<<"* Hash SHA1:"<<std::endl;
- for (int x = 0; x < 20; ++x)
+ for(unsigned char x = 0; x < 20; ++x)
  {
-  std::printf("%x ", hash[x]); //Hex-format
+  // Hex-format
+  std::cout<<std::hex<<(unsigned short int)hash[x]<<" ";
  }
  std::cout<<std::endl;
  // list: Create the list of all characters to test.

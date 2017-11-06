@@ -28,9 +28,9 @@
 //#include <crypto++/hex.h>
 
 #include <string>   // std::string
-#include <iostream> // std::cout, ostream (std::endl)
+#include <iostream> // std::cout, ostream (std::endl),
+                    // io (std::hex)
 #include <cstddef>  // size_t
-#include <cstdio>   // std::printf
 #include <cstdlib>  // EXIT_SUCCESS, exit
 
 #include <boost/thread.hpp> // boost::thread_group, boost::bind
@@ -136,9 +136,10 @@ void findPasswordThread(const unsigned char * hash, const std::string & pass, co
   {
    // Display once again the hash.
    std::cout<<"* Hash SHA1:"<<std::endl;
-   for (unsigned char x = 0; x < 20; ++x)
+   for(unsigned char x = 0; x < 20; ++x)
    {
-    std::printf("%x ", hash[x]); //Hex-format
+    // Hex-format
+    std::cout<<std::hex<<(unsigned short int)hash[x]<<" ";
    }
    std::cout<<std::endl;
    // Display the password.
