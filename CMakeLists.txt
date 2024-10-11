@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.5)
+project(SHA1BruteForce)
+add_executable(sha1 main.cpp functions.h functions.cpp)
+target_compile_features(sha1 PRIVATE cxx_std_20)
+target_link_libraries(sha1 PRIVATE boost_thread boost_system tomcrypt)
